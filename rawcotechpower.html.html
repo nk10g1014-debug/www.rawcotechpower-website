@@ -1,0 +1,1965 @@
+<RAWCO html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0"
+    />
+    <title>RAWCO POWER GLOBAL – Remote Energy & Asset Intelligence</title>
+    <meta
+      name="description"
+      content="RAWCO POWER GLOBAL provides real-time remote energy and asset monitoring for telecom towers, data centers, microgrids, fleets, and critical infrastructure."
+    />
+    <link rel="icon" type="image/png" href="RAWCO LOGO_1.png" />
+    <style>
+      /* ---------------------------------------------------------
+         BRAND SYSTEM
+         Palette loosely inspired by Galooli:
+         deep navy, bright green, clean white, soft gray backgrounds.
+         --------------------------------------------------------- */
+      :root {
+        --brand-navy: #051b3a;
+        --brand-navy-soft: #0a234a;
+        --brand-blue: #007ac7;
+        --brand-green: #8bd53b;
+        --brand-green-soft: #b5ea7e;
+        --brand-bg-soft: #f3f6fb;
+        --brand-bg-chip: #e1ecfb;
+        --brand-text: #0f172a;
+        --brand-muted: #64748b;
+        --brand-border-subtle: #e2e8f0;
+        --danger: #f97316;
+        --radius-lg: 14px;
+        --radius-xl: 20px;
+        --shadow-soft: 0 18px 35px rgba(15, 23, 42, 0.18);
+        --shadow-card: 0 10px 25px rgba(15, 23, 42, 0.12);
+        --transition-fast: 0.2s ease-out;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+          Roboto, sans-serif;
+        line-height: 1.6;
+        color: var(--brand-text);
+        background: #ffffff;
+      }
+
+      img {
+        max-width: 100%;
+        display: block;
+      }
+
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 1.25rem;
+      }
+
+      section {
+        padding: 4.5rem 1.25rem;
+      }
+
+      @media (min-width: 1024px) {
+        section {
+          padding: 5.5rem 1.25rem;
+        }
+      }
+
+      /* ---------------------------------------------------------
+         TOP STATUS TICKER
+         --------------------------------------------------------- */
+      @keyframes ticker-scroll {
+        from {
+          transform: translateX(0);
+        }
+        to {
+          transform: translateX(-50%);
+        }
+      }
+
+      .ticker-bar {
+        background: linear-gradient(
+          90deg,
+          var(--brand-navy),
+          var(--brand-navy-soft)
+        );
+        color: #e5e7eb;
+        font-size: 0.75rem;
+        overflow: hidden;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+      }
+
+      .ticker-inner {
+        display: flex;
+        white-space: nowrap;
+        animation: ticker-scroll 32s linear infinite;
+      }
+
+      .ticker-item {
+        padding: 0.55rem 2.5rem 0.55rem 0;
+        display: flex;
+        align-items: center;
+        gap: 0.4rem;
+        opacity: 0.9;
+      }
+
+      .ticker-label {
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+        font-weight: 500;
+        font-family: monospace;
+      }
+
+      .ticker-pill {
+        padding: 2px 8px;
+        border-radius: 999px;
+        background: rgba(15, 23, 42, 0.15);
+        font-weight: 600;
+      }
+
+      .ticker-pill.ok {
+        background: rgba(34, 197, 94, 0.16);
+        color: #bbf7d0;
+      }
+
+      .ticker-pill.warn {
+        background: rgba(249, 115, 22, 0.22);
+        color: #fed7aa;
+      }
+
+      .ticker-pill.accent {
+        background: rgba(59, 130, 246, 0.2);
+        color: #bfdbfe;
+      }
+
+      /* ---------------------------------------------------------
+         NAVIGATION
+         --------------------------------------------------------- */
+      header {
+        position: sticky;
+        top: 0;
+        z-index: 40;
+        backdrop-filter: blur(16px);
+      }
+
+      .nav-shell {
+        background: rgba(255, 255, 255, 0.92);
+        border-bottom: 1px solid rgba(148, 163, 184, 0.2);
+      }
+
+      .nav {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0.9rem 1.25rem;
+      }
+
+      .nav-left {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+      }
+
+      .nav-logo {
+        display: flex;
+        align-items: center;
+        gap: 0.35rem;
+      }
+
+      .nav-logo img {
+        width: 40px;
+        height: auto;
+      }
+
+      .nav-title {
+        display: flex;
+        flex-direction: column;
+      }
+
+      .nav-title-main {
+        font-weight: 800;
+        font-size: 1rem;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: var(--brand-navy);
+      }
+
+      .nav-title-sub {
+        font-size: 0.7rem;
+        text-transform: uppercase;
+        letter-spacing: 0.16em;
+        color: var(--brand-muted);
+      }
+
+      .nav-links {
+        display: flex;
+        list-style: none;
+        gap: 1.6rem;
+        font-size: 0.9rem;
+      }
+
+      .nav-links a {
+        color: var(--brand-muted);
+        font-weight: 500;
+        position: relative;
+        padding-bottom: 0.1rem;
+      }
+
+      .nav-links a::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        width: 0;
+        height: 2px;
+        border-radius: 999px;
+        background: linear-gradient(
+          90deg,
+          var(--brand-green),
+          var(--brand-blue)
+        );
+        transition: width var(--transition-fast);
+      }
+
+      .nav-links a:hover {
+        color: var(--brand-navy);
+      }
+      .nav-links a:hover::after {
+        width: 100%;
+      }
+
+      .nav-cta {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+      }
+
+      .chip-small {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.35rem;
+        background: var(--brand-bg-chip);
+        border-radius: 999px;
+        padding: 0.25rem 0.6rem;
+        font-size: 0.7rem;
+        color: var(--brand-navy);
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.09em;
+      }
+
+      .chip-dot {
+        width: 7px;
+        height: 7px;
+        border-radius: 999px;
+        background: #22c55e;
+        box-shadow: 0 0 0 6px rgba(34, 197, 94, 0.28);
+      }
+
+      .btn {
+        border-radius: 999px;
+        padding: 0.55rem 1.3rem;
+        font-size: 0.85rem;
+        font-weight: 600;
+        border: 1px solid transparent;
+        cursor: pointer;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        transition:
+          background var(--transition-fast),
+          color var(--transition-fast),
+          border-color var(--transition-fast),
+          box-shadow var(--transition-fast),
+          transform var(--transition-fast);
+        white-space: nowrap;
+      }
+
+      .btn-primary {
+        background: linear-gradient(
+          135deg,
+          var(--brand-green),
+          var(--brand-blue)
+        );
+        color: #022c22;
+        box-shadow: 0 14px 30px rgba(16, 185, 129, 0.35);
+      }
+
+      .btn-primary:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 18px 40px rgba(37, 99, 235, 0.45);
+      }
+
+      .btn-outline {
+        background: rgba(255, 255, 255, 0.9);
+        border-color: rgba(148, 163, 184, 0.6);
+        color: var(--brand-navy);
+      }
+
+      .btn-outline:hover {
+        background: #f9fafb;
+        border-color: var(--brand-blue);
+      }
+
+      .btn-ghost {
+        background: transparent;
+        color: var(--brand-muted);
+      }
+
+      .btn-ghost:hover {
+        color: var(--brand-navy);
+        background: rgba(148, 163, 184, 0.06);
+      }
+
+      .nav-toggle {
+        display: none;
+        border: none;
+        background: transparent;
+        cursor: pointer;
+        padding: 0.3rem;
+      }
+
+      .nav-toggle span {
+        display: block;
+        width: 20px;
+        height: 2px;
+        background: var(--brand-navy);
+        border-radius: 999px;
+        margin: 3px 0;
+        transition: transform 0.2s;
+      }
+
+      /* ---------------------------------------------------------
+         HERO
+         --------------------------------------------------------- */
+      .hero {
+        background: radial-gradient(
+              circle at top left,
+              rgba(139, 213, 59, 0.12),
+              transparent 55%
+            ),
+          radial-gradient(
+              circle at bottom right,
+              rgba(0, 122, 199, 0.16),
+              transparent 55%
+            )
+            #020617;
+        color: #e5e7eb;
+        padding-top: 3.5rem;
+        padding-bottom: 4.5rem;
+      }
+
+      .hero-inner {
+        display: grid;
+        gap: 3rem;
+        align-items: center;
+      }
+
+      @media (min-width: 900px) {
+        .hero-inner {
+          grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr);
+        }
+      }
+
+      .eyebrow {
+        font-size: 0.78rem;
+        text-transform: uppercase;
+        letter-spacing: 0.18em;
+        color: #a5b4fc;
+        font-weight: 600;
+        margin-bottom: 0.8rem;
+      }
+
+      .hero-title {
+        font-size: clamp(2.35rem, 4vw, 3.15rem);
+        line-height: 1.05;
+        font-weight: 800;
+        letter-spacing: -0.03em;
+        margin-bottom: 1.1rem;
+      }
+
+      .hero-highlight {
+        background: linear-gradient(
+          120deg,
+          var(--brand-green),
+          var(--brand-blue)
+        );
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+      }
+
+      .hero-subtitle {
+        max-width: 540px;
+        font-size: 1rem;
+        color: #cbd5f5;
+        margin-bottom: 1.6rem;
+      }
+
+      .hero-badges {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.7rem;
+        margin-top: 1.5rem;
+        font-size: 0.78rem;
+      }
+
+      .badge {
+        border-radius: 999px;
+        padding: 0.3rem 0.9rem;
+        border: 1px solid rgba(148, 163, 184, 0.35);
+        background: rgba(15, 23, 42, 0.55);
+        color: #e5e7eb;
+      }
+
+      .badge strong {
+        color: var(--brand-green-soft);
+      }
+
+      .hero-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.85rem;
+        align-items: center;
+      }
+
+      .hero-note {
+        font-size: 0.78rem;
+        color: #9ca3af;
+      }
+
+      /* Hero right “mock UI” */
+      .hero-panel {
+        background: rgba(15, 23, 42, 0.92);
+        border-radius: var(--radius-xl);
+        padding: 1.5rem 1.4rem;
+        box-shadow: var(--shadow-soft);
+        border: 1px solid rgba(148, 163, 184, 0.35);
+      }
+
+      .hero-panel-top {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 1.1rem;
+      }
+
+      .hero-panel-title {
+        font-size: 0.85rem;
+        text-transform: uppercase;
+        letter-spacing: 0.14em;
+        color: #9ca3af;
+      }
+
+      .hero-status-pill {
+        border-radius: 999px;
+        padding: 0.2rem 0.7rem;
+        background: rgba(34, 197, 94, 0.1);
+        color: #bbf7d0;
+        font-size: 0.72rem;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.4rem;
+      }
+
+      .hero-status-dot {
+        width: 7px;
+        height: 7px;
+        border-radius: 999px;
+        background: #22c55e;
+      }
+
+      .hero-kpi-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 0.8rem;
+        margin-bottom: 1.2rem;
+      }
+
+      .hero-kpi {
+        background: rgba(15, 23, 42, 0.9);
+        border-radius: 12px;
+        padding: 0.7rem 0.8rem;
+        border: 1px solid rgba(51, 65, 85, 0.95);
+      }
+
+      .hero-kpi-label {
+        font-size: 0.72rem;
+        text-transform: uppercase;
+        letter-spacing: 0.12em;
+        color: #9ca3af;
+        margin-bottom: 0.35rem;
+      }
+
+      .hero-kpi-value {
+        font-size: 1rem;
+        font-weight: 700;
+        color: #f9fafb;
+      }
+
+      .hero-kpi-trend {
+        font-size: 0.7rem;
+        margin-top: 0.15rem;
+      }
+
+      .hero-kpi-trend.positive {
+        color: #bbf7d0;
+      }
+      .hero-kpi-trend.negative {
+        color: #fecaca;
+      }
+
+      .hero-sites-list {
+        margin-top: 0.4rem;
+        border-radius: 12px;
+        border: 1px solid rgba(51, 65, 85, 0.9);
+        padding: 0.6rem 0.75rem;
+        font-size: 0.75rem;
+      }
+
+      .hero-sites-row {
+        display: flex;
+        justify-content: space-between;
+        padding: 0.35rem 0;
+        border-bottom: 1px dashed rgba(51, 65, 85, 0.8);
+      }
+
+      .hero-sites-row:last-child {
+        border-bottom: none;
+      }
+
+      .hero-sites-name {
+        color: #e5e7eb;
+      }
+
+      .hero-sites-badges {
+        display: flex;
+        gap: 0.35rem;
+      }
+
+      .pill-mini {
+        border-radius: 999px;
+        padding: 0.1rem 0.45rem;
+        font-size: 0.68rem;
+        border: 1px solid rgba(148, 163, 184, 0.45);
+      }
+
+      .pill-mini.green {
+        border-color: rgba(34, 197, 94, 0.55);
+        color: #a7f3d0;
+      }
+
+      .pill-mini.orange {
+        border-color: rgba(249, 115, 22, 0.7);
+        color: #fed7aa;
+      }
+
+      /* ---------------------------------------------------------
+         SECTION TITLES
+         --------------------------------------------------------- */
+      .section-heading {
+        text-align: center;
+        margin-bottom: 3rem;
+      }
+
+      .section-eyebrow {
+        font-size: 0.8rem;
+        text-transform: uppercase;
+        letter-spacing: 0.16em;
+        font-weight: 600;
+        color: var(--brand-blue);
+        margin-bottom: 0.6rem;
+      }
+
+      .section-title {
+        font-size: 1.9rem;
+        font-weight: 800;
+        letter-spacing: -0.03em;
+        color: var(--brand-navy);
+        margin-bottom: 0.5rem;
+      }
+
+      .section-subtitle {
+        max-width: 640px;
+        margin: 0.25rem auto 0;
+        font-size: 0.98rem;
+        color: var(--brand-muted);
+      }
+
+      /* ---------------------------------------------------------
+         GRIDS & CARDS
+         --------------------------------------------------------- */
+      .grid {
+        display: grid;
+        gap: 1.7rem;
+      }
+
+      .grid-3 {
+        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      }
+
+      .grid-4 {
+        grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+      }
+
+      .card {
+        background: #ffffff;
+        border-radius: var(--radius-lg);
+        padding: 1.5rem 1.4rem;
+        border: 1px solid var(--brand-border-subtle);
+        box-shadow: 0 4px 14px rgba(148, 163, 184, 0.18);
+        transition:
+          transform var(--transition-fast),
+          box-shadow var(--transition-fast),
+          border-color var(--transition-fast),
+          background var(--transition-fast);
+      }
+
+      .card:hover {
+        transform: translateY(-4px);
+        box-shadow: var(--shadow-card);
+        border-color: rgba(37, 99, 235, 0.35);
+      }
+
+      .card-icon {
+        width: 40px;
+        height: 40px;
+        border-radius: 16px;
+        background: radial-gradient(
+          circle at 0 0,
+          var(--brand-green),
+          var(--brand-blue)
+        );
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.35rem;
+        margin-bottom: 0.8rem;
+        color: #0b1020;
+      }
+
+      .card h3 {
+        font-size: 1.1rem;
+        margin-bottom: 0.4rem;
+        color: var(--brand-navy);
+      }
+
+      .card p {
+        font-size: 0.9rem;
+        color: var(--brand-muted);
+      }
+
+      .card-tagline {
+        margin-top: 0.7rem;
+        font-size: 0.78rem;
+        text-transform: uppercase;
+        letter-spacing: 0.12em;
+        color: var(--brand-blue);
+        font-weight: 600;
+      }
+
+      /* ---------------------------------------------------------
+         SOLUTIONS STRIP (the 8 modules you already use)
+         --------------------------------------------------------- */
+      .solutions-strip {
+        background: var(--brand-bg-soft);
+      }
+
+      .solutions-grid .card {
+        background: #ffffff;
+      }
+
+      /* ---------------------------------------------------------
+         INDUSTRIES
+         --------------------------------------------------------- */
+      .industry-card {
+        position: relative;
+        overflow: hidden;
+      }
+
+      .industry-chip {
+        font-size: 0.7rem;
+        text-transform: uppercase;
+        letter-spacing: 0.16em;
+        color: var(--brand-muted);
+        margin-bottom: 0.3rem;
+      }
+
+      .industry-meta {
+        margin-top: 0.7rem;
+        font-size: 0.78rem;
+        color: var(--brand-muted);
+      }
+
+      .industry-band {
+        position: absolute;
+        inset: auto -40px 0;
+        height: 3px;
+        background: linear-gradient(
+          90deg,
+          var(--brand-green),
+          var(--brand-blue)
+        );
+      }
+
+      /* ---------------------------------------------------------
+         PLATFORM OVERVIEW
+         --------------------------------------------------------- */
+      .platform-section {
+        background: #ffffff;
+      }
+
+      .platform-layout {
+        display: grid;
+        gap: 2.5rem;
+      }
+
+      @media (min-width: 960px) {
+        .platform-layout {
+          grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+          align-items: start;
+        }
+      }
+
+      .platform-list {
+        display: grid;
+        gap: 1.1rem;
+      }
+
+      .platform-item {
+        display: grid;
+        grid-template-columns: auto minmax(0, 1fr);
+        gap: 0.9rem;
+        align-items: start;
+      }
+
+      .platform-bullet {
+        width: 22px;
+        height: 22px;
+        border-radius: 999px;
+        background: var(--brand-bg-chip);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 0.75rem;
+        color: var(--brand-blue);
+        font-weight: 700;
+      }
+
+      .platform-item-title {
+        font-size: 0.96rem;
+        font-weight: 600;
+        color: var(--brand-navy);
+      }
+
+      .platform-item-text {
+        font-size: 0.88rem;
+        color: var(--brand-muted);
+      }
+
+      .platform-panel {
+        border-radius: var(--radius-xl);
+        padding: 1.2rem 1.2rem 1.4rem;
+        background: radial-gradient(
+            circle at top,
+            rgba(139, 213, 59, 0.16),
+            transparent 55%
+          ),
+          radial-gradient(
+            circle at bottom right,
+            rgba(0, 122, 199, 0.25),
+            transparent 55%
+          ),
+          var(--brand-navy-soft);
+        color: #e5e7eb;
+        box-shadow: var(--shadow-soft);
+        border: 1px solid rgba(30, 64, 175, 0.7);
+      }
+
+      .platform-panel h3 {
+        font-size: 0.96rem;
+        text-transform: uppercase;
+        letter-spacing: 0.16em;
+        margin-bottom: 0.6rem;
+        color: #c7d2fe;
+      }
+
+      .platform-metric-row {
+        display: flex;
+        justify-content: space-between;
+        font-size: 0.85rem;
+        margin-bottom: 0.5rem;
+      }
+
+      .platform-pill {
+        font-size: 0.7rem;
+        border-radius: 999px;
+        padding: 0.2rem 0.6rem;
+        border: 1px solid rgba(148, 163, 184, 0.7);
+        margin-right: 0.35rem;
+      }
+
+      .platform-footnote {
+        margin-top: 0.9rem;
+        font-size: 0.78rem;
+        color: #cbd5f5;
+      }
+
+      /* ---------------------------------------------------------
+         OUTCOMES STATS
+         --------------------------------------------------------- */
+      .outcomes-section {
+        background: var(--brand-bg-soft);
+      }
+
+      .stat-grid {
+        display: grid;
+        gap: 1.8rem;
+        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      }
+
+      .stat-card {
+        text-align: center;
+      }
+
+      .stat-value {
+        font-size: 2.1rem;
+        font-weight: 800;
+        color: var(--brand-navy);
+        letter-spacing: -0.04em;
+      }
+
+      .stat-label {
+        font-size: 0.88rem;
+        color: var(--brand-muted);
+        margin-top: 0.3rem;
+      }
+
+      .stat-chip {
+        margin-top: 0.6rem;
+        font-size: 0.72rem;
+        padding: 0.2rem 0.6rem;
+        border-radius: 999px;
+        display: inline-block;
+        background: #dcfce7;
+        color: #166534;
+        font-weight: 600;
+      }
+
+      /* ---------------------------------------------------------
+         TESTIMONIAL
+         --------------------------------------------------------- */
+      .testimonial-section {
+        background: #ffffff;
+      }
+
+      .testimonial-card {
+        max-width: 840px;
+        margin: 0 auto;
+        background: #ffffff;
+        border-radius: var(--radius-xl);
+        padding: 2.3rem 2rem;
+        border: 1px solid var(--brand-border-subtle);
+        box-shadow: var(--shadow-card);
+        text-align: left;
+      }
+
+      .testimonial-quote {
+        font-size: 1.05rem;
+        color: #020617;
+        font-style: italic;
+        margin-bottom: 1.5rem;
+      }
+
+      .testimonial-author {
+        font-weight: 600;
+        color: var(--brand-navy);
+      }
+
+      .testimonial-role {
+        font-size: 0.82rem;
+        color: var(--brand-muted);
+        margin-top: 0.1rem;
+      }
+
+      /* ---------------------------------------------------------
+         CONTACT / DEMO
+         --------------------------------------------------------- */
+      .contact-section {
+        background: radial-gradient(
+            circle at top left,
+            rgba(139, 213, 59, 0.22),
+            transparent 58%
+          ),
+          radial-gradient(
+            circle at bottom right,
+            rgba(0, 122, 199, 0.23),
+            transparent 60%
+          ),
+          var(--brand-navy);
+        color: #e5e7eb;
+      }
+
+      .contact-layout {
+        display: grid;
+        gap: 2.4rem;
+      }
+
+      @media (min-width: 880px) {
+        .contact-layout {
+          grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+          align-items: start;
+        }
+      }
+
+      .contact-heading {
+        font-size: 1.8rem;
+        font-weight: 800;
+        letter-spacing: -0.03em;
+        margin-bottom: 0.7rem;
+      }
+
+      .contact-text {
+        font-size: 0.96rem;
+        color: #d1d5db;
+        margin-bottom: 1.4rem;
+      }
+
+      .contact-points {
+        display: grid;
+        gap: 0.7rem;
+        font-size: 0.88rem;
+      }
+
+      .contact-point {
+        display: flex;
+        align-items: flex-start;
+        gap: 0.6rem;
+      }
+
+      .contact-point-icon {
+        width: 26px;
+        height: 26px;
+        border-radius: 999px;
+        background: rgba(15, 23, 42, 0.82);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 0.9rem;
+      }
+
+      .contact-form {
+        background: rgba(15, 23, 42, 0.9);
+        border-radius: var(--radius-xl);
+        padding: 1.6rem 1.5rem;
+        border: 1px solid rgba(148, 163, 184, 0.5);
+        box-shadow: var(--shadow-soft);
+      }
+
+      .form-grid {
+        display: grid;
+        gap: 1rem;
+      }
+
+      @media (min-width: 640px) {
+        .form-grid-2 {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+      }
+
+      .form-field label {
+        font-size: 0.8rem;
+        text-transform: uppercase;
+        letter-spacing: 0.14em;
+        color: #9ca3af;
+        display: block;
+        margin-bottom: 0.3rem;
+      }
+
+      .form-input,
+      .form-textarea {
+        width: 100%;
+        border-radius: 10px;
+        border: 1px solid rgba(148, 163, 184, 0.7);
+        background: rgba(15, 23, 42, 0.9);
+        padding: 0.6rem 0.7rem;
+        color: #e5e7eb;
+        font-size: 0.9rem;
+      }
+
+      .form-input:focus,
+      .form-textarea:focus {
+        outline: none;
+        border-color: var(--brand-green);
+        box-shadow: 0 0 0 1px rgba(139, 213, 59, 0.5);
+      }
+
+      .form-textarea {
+        min-height: 110px;
+        resize: vertical;
+      }
+
+      .form-helper {
+        font-size: 0.75rem;
+        color: #9ca3af;
+        margin-top: 0.2rem;
+      }
+
+      .form-checkbox-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.4rem 1rem;
+        margin-top: 0.4rem;
+      }
+
+      .form-checkbox {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.3rem;
+        font-size: 0.8rem;
+        color: #cbd5f5;
+      }
+
+      .form-checkbox input {
+        accent-color: var(--brand-green);
+      }
+
+      /* ---------------------------------------------------------
+         FOOTER
+         --------------------------------------------------------- */
+      footer {
+        background: #020617;
+        color: #9ca3af;
+        padding: 3rem 1.25rem 2rem;
+      }
+
+      .footer-grid {
+        display: grid;
+        gap: 2.4rem;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        margin-bottom: 2.4rem;
+      }
+
+      .footer-logo-row {
+        display: flex;
+        align-items: center;
+        gap: 0.7rem;
+        margin-bottom: 0.85rem;
+      }
+
+      .footer-logo-row img {
+        width: 40px;
+      }
+
+      .footer-brand {
+        font-size: 1rem;
+        font-weight: 700;
+        color: #e5e7eb;
+      }
+
+      .footer-text {
+        font-size: 0.86rem;
+        color: #9ca3af;
+      }
+
+      .footer-heading {
+        font-size: 0.9rem;
+        font-weight: 600;
+        color: #e5e7eb;
+        margin-bottom: 0.6rem;
+        text-transform: uppercase;
+        letter-spacing: 0.12em;
+      }
+
+      .footer-contact-row {
+        display: flex;
+        align-items: flex-start;
+        gap: 0.55rem;
+        margin-bottom: 0.5rem;
+        font-size: 0.86rem;
+      }
+
+      .footer-contact-row span:first-child {
+        width: 18px;
+        text-align: center;
+      }
+
+      .footer-contact-row a {
+        color: inherit;
+      }
+
+      .footer-contact-row a:hover {
+        color: var(--brand-green);
+      }
+
+      .footer-bottom {
+        border-top: 1px solid rgba(148, 163, 184, 0.36);
+        padding-top: 1.1rem;
+        font-size: 0.8rem;
+        text-align: center;
+      }
+
+      /* ---------------------------------------------------------
+         RESPONSIVE
+         --------------------------------------------------------- */
+      @media (max-width: 880px) {
+        .nav-links {
+          position: fixed;
+          inset: 60px 1rem auto;
+          flex-direction: column;
+          background: rgba(255, 255, 255, 0.98);
+          padding: 1rem 1.2rem 1.4rem;
+          border-radius: 18px;
+          box-shadow: var(--shadow-card);
+          border: 1px solid rgba(148, 163, 184, 0.35);
+          display: none;
+          z-index: 50;
+        }
+
+        .nav-links.open {
+          display: flex;
+        }
+
+        .nav-toggle {
+          display: inline-flex;
+        }
+
+        .nav-cta {
+          display: none;
+        }
+
+        .hero {
+          padding-top: 2.5rem;
+        }
+      }
+
+      @media (max-width: 640px) {
+        .hero-panel {
+          margin-inline: auto;
+          max-width: 340px;
+        }
+
+        .ticker-inner {
+          animation-duration: 40s;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- STATUS TICKER -->
+    <div class="ticker-bar">
+      <div class="ticker-inner">
+        <!-- Duplicate items so the scroll loops smoothly -->
+        <div class="ticker-item">
+          <span class="ticker-label">System</span>
+          <span class="ticker-pill ok">All clusters online</span>
+        </div>
+        <div class="ticker-item">
+          <span class="ticker-label">Sites</span>
+          <span class="ticker-pill accent">14,205 assets streaming live</span>
+        </div>
+        <div class="ticker-item">
+          <span class="ticker-label">Fuel saved YTD</span>
+          <span class="ticker-pill">2.4M L equivalent</span>
+        </div>
+        <div class="ticker-item">
+          <span class="ticker-label">Active alarms</span>
+          <span class="ticker-pill warn">12 require attention</span>
+        </div>
+        <div class="ticker-item">
+          <span class="ticker-label">Hamburg NOC</span>
+          <span class="ticker-pill ok">Staffed 24/7</span>
+        </div>
+        <div class="ticker-item">
+          <span class="ticker-label">Tema hub</span>
+          <span class="ticker-pill ok">Hybrid sites stable</span>
+        </div>
+
+        <!-- Copy again for seamless animation -->
+        <div class="ticker-item">
+          <span class="ticker-label">System</span>
+          <span class="ticker-pill ok">All clusters online</span>
+        </div>
+        <div class="ticker-item">
+          <span class="ticker-label">Sites</span>
+          <span class="ticker-pill accent">14,205 assets streaming live</span>
+        </div>
+        <div class="ticker-item">
+          <span class="ticker-label">Fuel saved YTD</span>
+          <span class="ticker-pill">2.4M L equivalent</span>
+        </div>
+        <div class="ticker-item">
+          <span class="ticker-label">Active alarms</span>
+          <span class="ticker-pill warn">12 require attention</span>
+        </div>
+        <div class="ticker-item">
+          <span class="ticker-label">Hamburg NOC</span>
+          <span class="ticker-pill ok">Staffed 24/7</span>
+        </div>
+        <div class="ticker-item">
+          <span class="ticker-label">Tema hub</span>
+          <span class="ticker-pill ok">Hybrid sites stable</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- NAVIGATION -->
+    <header>
+      <div class="nav-shell">
+        <div class="container nav">
+          <div class="nav-left">
+            <a href="#home" class="nav-logo">
+              <!-- Update src to your actual horizontal logo file -->
+              <img src="RAWCO LOGO_1.png" alt="RAWCO POWER GLOBAL logo" />
+              <div class="nav-title">
+                <span class="nav-title-main">RAWCO POWER GLOBAL</span>
+                <span class="nav-title-sub">Remote Energy & Asset Cloud</span>
+              </div>
+            </a>
+          </div>
+
+          <button class="nav-toggle" aria-label="Toggle navigation">
+            <span></span>
+            <span></span>
+            <span></span>
+          </button>
+
+          <ul class="nav-links">
+            <li><a href="#home">Overview</a></li>
+            <li><a href="#solutions">Solutions</a></li>
+            <li><a href="#industries">Industries</a></li>
+            <li><a href="#platform">Platform</a></li>
+            <li><a href="#outcomes">Outcomes</a></li>
+            <li><a href="#contact">Demo</a></li>
+          </ul>
+
+          <div class="nav-cta">
+            <div class="chip-small">
+              <span class="chip-dot"></span>
+              <span>Live fleet monitored</span>
+            </div>
+            <a href="#contact" class="btn btn-primary">Book a live demo</a>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <!-- HERO -->
+      <section id="home" class="hero">
+        <div class="container hero-inner">
+          <div>
+            <div class="eyebrow">Remote sites · Real-time control</div>
+            <h1 class="hero-title">
+              Make every
+              <span class="hero-highlight">kilowatt, liter & asset</span>
+              visible.
+            </h1>
+            <p class="hero-subtitle">
+              RAWCO POWER GLOBAL gives telecom, data center, and industrial
+              teams a single cloud platform to monitor, control, and optimize
+              energy and critical assets across thousands of remote sites.
+            </p>
+
+            <div class="hero-actions">
+              <a href="#contact" class="btn btn-primary">
+                Request a strategy session
+              </a>
+              <a href="#platform" class="btn btn-ghost">
+                Explore the platform
+              </a>
+            </div>
+
+            <div class="hero-badges">
+              <span class="badge">
+                <strong>40%</strong> average OPEX reduction
+              </span>
+              <span class="badge">
+                <strong>99.9%</strong> monitored uptime across connected sites
+              </span>
+              <span class="badge"> Designed for multi-country rollouts </span>
+            </div>
+          </div>
+
+          <!-- Hero mock telemetry panel -->
+          <aside class="hero-panel" aria-hidden="true">
+            <div class="hero-panel-top">
+              <div>
+                <div class="hero-panel-title">Command view · RAWCO Cloud</div>
+              </div>
+              <div class="hero-status-pill">
+                <span class="hero-status-dot"></span>
+                <span>Streaming live data</span>
+              </div>
+            </div>
+
+            <div class="hero-kpi-grid">
+              <div class="hero-kpi">
+                <div class="hero-kpi-label">Grid vs. generator</div>
+                <div class="hero-kpi-value">76% grid · 24% gen</div>
+                <div class="hero-kpi-trend positive">
+                  +11% grid share vs. last month
+                </div>
+              </div>
+              <div class="hero-kpi">
+                <div class="hero-kpi-label">Fuel theft risk</div>
+                <div class="hero-kpi-value">↓ 63%</div>
+                <div class="hero-kpi-trend positive">
+                  remote alarms & geo-fencing
+                </div>
+              </div>
+              <div class="hero-kpi">
+                <div class="hero-kpi-label">CO₂ avoided (YTD)</div>
+                <div class="hero-kpi-value">8,420 t</div>
+                <div class="hero-kpi-trend positive">
+                  aligned with ESG reporting
+                </div>
+              </div>
+              <div class="hero-kpi">
+                <div class="hero-kpi-label">Fleet health</div>
+                <div class="hero-kpi-value">87% green</div>
+                <div class="hero-kpi-trend negative">
+                  46 sites flagged for review
+                </div>
+              </div>
+            </div>
+
+            <div class="hero-sites-list">
+              <div class="hero-sites-row">
+                <div class="hero-sites-name">Hamburg · Data hub 01</div>
+                <div class="hero-sites-badges">
+                  <span class="pill-mini green">Stable</span>
+                  <span class="pill-mini">PUE 1.22</span>
+                </div>
+              </div>
+              <div class="hero-sites-row">
+                <div class="hero-sites-name">Tema · Hybrid telecom cluster</div>
+                <div class="hero-sites-badges">
+                  <span class="pill-mini orange">High genset runtime</span>
+                  <span class="pill-mini">Ticket opened</span>
+                </div>
+              </div>
+              <div class="hero-sites-row">
+                <div class="hero-sites-name">Off-grid microgrids · West</div>
+                <div class="hero-sites-badges">
+                  <span class="pill-mini green">Solar first</span>
+                  <span class="pill-mini">Battery 83%</span>
+                </div>
+              </div>
+            </div>
+          </aside>
+        </div>
+      </section>
+
+      <!-- SOLUTIONS (THE 8 MODULES) -->
+      <section id="solutions" class="solutions-strip">
+        <div class="container">
+          <div class="section-heading">
+            <div class="section-eyebrow">Solution modules</div>
+            <h2 class="section-title">One platform, eight focused pillars</h2>
+            <p class="section-subtitle">
+              Start with a single use case – fuel, uptime, security, or fleet –
+              and grow into a full remote energy and asset command center as
+              your operations scale.
+            </p>
+          </div>
+
+          <div class="grid grid-4 solutions-grid">
+            <article class="card">
+              <div class="card-icon">📡</div>
+              <h3>Site Management</h3>
+              <p>
+                Get complete remote visibility over power flows, alarms, and
+                KPIs across every tower, shelter, or POP in your footprint.
+              </p>
+              <div class="card-tagline">Map, groups & SLA views</div>
+            </article>
+
+            <article class="card">
+              <div class="card-icon">⚡</div>
+              <h3>Energy Asset Monitoring</h3>
+              <p>
+                Track generators, batteries, inverters, and meters in real time.
+                Spot anomalies early and automate responses.
+              </p>
+              <div class="card-tagline">Telemetry · thresholds · rules</div>
+            </article>
+
+            <article class="card">
+              <div class="card-icon">🛡️</div>
+              <h3>Asset Security</h3>
+              <p>
+                Combine door sensors, fuel probes, camera triggers, and
+                geo-fencing to protect remote assets from theft and misuse.
+              </p>
+              <div class="card-tagline">Secure every liter & rack</div>
+            </article>
+
+            <article class="card">
+              <div class="card-icon">👁️</div>
+              <h3>Asset Visibility</h3>
+              <p>
+                Build a single source of truth for what is installed where,
+                configuration baselines, and real-world performance.
+              </p>
+              <div class="card-tagline">Digital twin for the field</div>
+            </article>
+
+            <article class="card">
+              <div class="card-icon">📈</div>
+              <h3>Efficiency</h3>
+              <p>
+                Benchmark OPEX, generator runtime, truck rolls, and kWh per
+                site; then prioritize the highest-impact interventions.
+              </p>
+              <div class="card-tagline">From data to action</div>
+            </article>
+
+            <article class="card">
+              <div class="card-icon">🌱</div>
+              <h3>Sustainability</h3>
+              <p>
+                Turn raw telemetry into emissions, diesel, and grid-mix
+                insights, ready for ESG and sustainability reporting.
+              </p>
+              <div class="card-tagline">CO₂, diesel & kWh tracked</div>
+            </article>
+
+            <article class="card">
+              <div class="card-icon">🚚</div>
+              <h3>Fleet Management</h3>
+              <p>
+                Overlay GPS and CAN bus data with energy KPIs to understand how
+                your vehicles support field operations and uptime.
+              </p>
+              <div class="card-tagline">Field engineering fleets</div>
+            </article>
+
+            <article class="card">
+              <div class="card-icon">🎛️</div>
+              <h3>Remote Control</h3>
+              <p>
+                Safely start generators, change set-points, silence alarms, or
+                shift energy priorities without sending a technician on site.
+              </p>
+              <div class="card-tagline">Policy-driven remote actions</div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- INDUSTRIES -->
+      <section id="industries">
+        <div class="container">
+          <div class="section-heading">
+            <div class="section-eyebrow">Industries we support</div>
+            <h2 class="section-title">Built for energy-intensive operations</h2>
+            <p class="section-subtitle">
+              RAWCO adapts to your topology – from dense urban networks to
+              remote off-grid facilities – while giving headquarters a clean,
+              consistent view.
+            </p>
+          </div>
+
+          <div class="grid grid-3">
+            <article class="card industry-card">
+              <div class="industry-chip">Telecommunications</div>
+              <h3>Macro, rooftop & rural towers</h3>
+              <p>
+                Keep radios and transport online with generator, battery, and
+                grid monitoring across thousands of multi-vendor sites.
+              </p>
+              <p class="industry-meta">Multi-tenant, MSO & operator ready.</p>
+              <div class="industry-band"></div>
+            </article>
+
+            <article class="card industry-card">
+              <div class="industry-chip">Data centers & edge</div>
+              <h3>Core, regional & micro edge</h3>
+              <p>
+                Correlate UPS events, cooling behavior, and energy costs with
+                IT load to keep SLAs and margins healthy.
+              </p>
+              <p class="industry-meta">
+                Ideal for edge containers and telco clouds.
+              </p>
+              <div class="industry-band"></div>
+            </article>
+
+            <article class="card industry-card">
+              <div class="industry-chip">Microgrids & renewables</div>
+              <h3>Hybrid and off-grid systems</h3>
+              <p>
+                Coordinate solar, storage, diesel, and grid connections to
+                minimize fuel use without compromising reliability.
+              </p>
+              <p class="industry-meta">PV, BESS, and genset agnostic.</p>
+              <div class="industry-band"></div>
+            </article>
+
+            <article class="card industry-card">
+              <div class="industry-chip">Commercial facilities</div>
+              <h3>Campuses, malls & industrial parks</h3>
+              <p>
+                Unite HVAC, lighting, and sub-metering data and turn it into
+                intuitive dashboards for energy managers.
+              </p>
+              <p class="industry-meta">Perfect for multi-site operators.</p>
+              <div class="industry-band"></div>
+            </article>
+
+            <article class="card industry-card">
+              <div class="industry-chip">Utilities & infrastructure</div>
+              <h3>Critical public assets</h3>
+              <p>
+                Monitor remote substations, pumping stations, and control rooms
+                with high-availability, secure telemetry.
+              </p>
+              <p class="industry-meta">
+                Role-based access & audit-ready history.
+              </p>
+              <div class="industry-band"></div>
+            </article>
+
+            <article class="card industry-card">
+              <div class="industry-chip">Mobility & fleets</div>
+              <h3>Support vehicles & mobile power</h3>
+              <p>
+                Connect fuel, maintenance, and utilization metrics with your
+                remote-site strategy to squeeze more value out of every trip.
+              </p>
+              <p class="industry-meta">Works with existing GPS hardware.</p>
+              <div class="industry-band"></div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- PLATFORM -->
+      <section id="platform" class="platform-section">
+        <div class="container">
+          <div class="section-heading">
+            <div class="section-eyebrow">Platform architecture</div>
+            <h2 class="section-title">From raw telemetry to decisions</h2>
+            <p class="section-subtitle">
+              RAWCO is built as an open, hardware-agnostic layer between your
+              field assets and your operations teams – with automation baked
+              into every stage.
+            </p>
+          </div>
+
+          <div class="platform-layout">
+            <div>
+              <div class="platform-list">
+                <div class="platform-item">
+                  <div class="platform-bullet">1</div>
+                  <div>
+                    <div class="platform-item-title">Ingest & normalize</div>
+                    <div class="platform-item-text">
+                      Support for Modbus, SNMP, MQTT, REST, and proprietary
+                      protocols. Normalize multi-vendor data into a consistent
+                      RAWCO asset model.
+                    </div>
+                  </div>
+                </div>
+
+                <div class="platform-item">
+                  <div class="platform-bullet">2</div>
+                  <div>
+                    <div class="platform-item-title">
+                      Rule engine & automations
+                    </div>
+                    <div class="platform-item-text">
+                      Build “if this, then that” flows with time windows,
+                      severity levels, and escalation paths, so incidents are
+                      handled before customers notice.
+                    </div>
+                  </div>
+                </div>
+
+                <div class="platform-item">
+                  <div class="platform-bullet">3</div>
+                  <div>
+                    <div class="platform-item-title">
+                      Dashboards & analytics studio
+                    </div>
+                    <div class="platform-item-text">
+                      Combine live widgets, historical trends, and map layers.
+                      Let operations, finance, and sustainability teams share a
+                      single version of the truth.
+                    </div>
+                  </div>
+                </div>
+
+                <div class="platform-item">
+                  <div class="platform-bullet">4</div>
+                  <div>
+                    <div class="platform-item-title">
+                      Open integrations & APIs
+                    </div>
+                    <div class="platform-item-text">
+                      Connect NOC systems, ticketing tools, and ERPs using REST
+                      APIs and webhooks so RAWCO becomes part of your existing
+                      workflow, not another silo.
+                    </div>
+                  </div>
+                </div>
+
+                <div class="platform-item">
+                  <div class="platform-bullet">5</div>
+                  <div>
+                    <div class="platform-item-title">
+                      Security & multi-tenant control
+                    </div>
+                    <div class="platform-item-text">
+                      Granular roles, encrypted data in transit and at rest, and
+                      region-aware hosting to support operators, partners, and
+                      enterprise customers on one platform.
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <aside class="platform-panel" aria-hidden="true">
+              <h3>Operations cockpit snapshot</h3>
+              <div class="platform-metric-row">
+                <span>Sites in SLA</span>
+                <strong>97.6%</strong>
+              </div>
+              <div class="platform-metric-row">
+                <span>Avg. site visits / month</span>
+                <strong>−38%</strong>
+              </div>
+              <div class="platform-metric-row">
+                <span>Diesel spend vs. baseline</span>
+                <strong>−33%</strong>
+              </div>
+              <div class="platform-metric-row">
+                <span>Alarms auto-resolved</span>
+                <strong>61%</strong>
+              </div>
+
+              <div style="margin-top: 0.8rem;">
+                <span class="platform-pill">NOC view</span>
+                <span class="platform-pill">CFO view</span>
+                <span class="platform-pill">Sustainability view</span>
+              </div>
+
+              <p class="platform-footnote">
+                Each role sees the same data, shaped for what they care about:
+                uptime, cost, or emissions – all backed by the same telemetry.
+              </p>
+            </aside>
+          </div>
+        </div>
+      </section>
+
+      <!-- OUTCOMES & STATS -->
+      <section id="outcomes" class="outcomes-section">
+        <div class="container">
+          <div class="section-heading">
+            <div class="section-eyebrow">Proven outcomes</div>
+            <h2 class="section-title">KPIs that matter to the business</h2>
+            <p class="section-subtitle">
+              Remote monitoring is only valuable when it moves real numbers.
+              RAWCO is designed around the KPIs your board and customers
+              actually track.
+            </p>
+          </div>
+
+          <div class="stat-grid">
+            <div class="stat-card">
+              <div class="stat-value">40%</div>
+              <div class="stat-label">
+                Cut in routine site visits when fuel and alarms are automated.
+              </div>
+              <div class="stat-chip">Less diesel & travel</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-value">99.9%</div>
+              <div class="stat-label">
+                Platform uptime powering thousands of distributed assets.
+              </div>
+              <div class="stat-chip">Carrier-grade reliability</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-value">-30%</div>
+              <div class="stat-label">
+                Reduction in generator runtime at hybrid and off-grid sites.
+              </div>
+              <div class="stat-chip">Cleaner operations</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-value">24/7</div>
+              <div class="stat-label">
+                Monitoring and alerting tailored to your network and working
+                hours.
+              </div>
+              <div class="stat-chip">Global support ready</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- TESTIMONIAL -->
+      <section class="testimonial-section">
+        <div class="container">
+          <div class="testimonial-card">
+            <p class="testimonial-quote">
+              “With RAWCO, our operations center stopped reacting to alarms and
+              started planning energy. We see exactly where fuel is going, which
+              sites need upgrades, and which issues we can fix remotely. The
+              impact on uptime and OPEX was visible in the first quarter.”
+            </p>
+            <div class="testimonial-author">
+              Network Operations Director
+            </div>
+            <div class="testimonial-role">
+              Tier-1 telecom operator (name withheld for confidentiality)
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- CONTACT / DEMO -->
+      <section id="contact" class="contact-section">
+        <div class="container contact-layout">
+          <div>
+            <h2 class="contact-heading">
+              Ready to see RAWCO in your network?
+            </h2>
+            <p class="contact-text">
+              Share a few details about your sites, fleet, or facilities and our
+              team will prepare a tailored live demo – using scenarios that look
+              like your real world, not a generic sandbox.
+            </p>
+
+            <div class="contact-points">
+              <div class="contact-point">
+                <div class="contact-point-icon">🌍</div>
+                <div>
+                  <strong>Germany office</strong><br />
+                  Behringstrasse 104, 22763 Hamburg, Altona, Germany
+                </div>
+              </div>
+              <div class="contact-point">
+                <div class="contact-point-icon">🌍</div>
+                <div>
+                  <strong>Ghana office</strong><br />
+                  Tema, Community 18, Spintex Road, Ghana
+                </div>
+              </div>
+              <div class="contact-point">
+                <div class="contact-point-icon">📞</div>
+                <div>
+                  Phone / WhatsApp:
+                  <br />
+                  <a href="tel:+4915774867171">+49 1577 4867171</a> ·
+                  <a href="tel:+233244816608">+233 24 481 6608</a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="contact-form">
+            <form action="#" method="post">
+              <div class="form-grid form-grid-2">
+                <div class="form-field">
+                  <label for="name">Name</label>
+                  <input
+                    id="name"
+                    name="name"
+                    class="form-input"
+                    type="text"
+                    placeholder="Your full name"
+                    required
+                  />
+                </div>
+                <div class="form-field">
+                  <label for="company">Company</label>
+                  <input
+                    id="company"
+                    name="company"
+                    class="form-input"
+                    type="text"
+                    placeholder="Organization name"
+                  />
+                </div>
+                <div class="form-field">
+                  <label for="email">Work email</label>
+                  <input
+                    id="email"
+                    name="email"
+                    class="form-input"
+                    type="email"
+                    placeholder="you@company.com"
+                    required
+                  />
+                </div>
+                <div class="form-field">
+                  <label for="role">Role</label>
+                  <input
+                    id="role"
+                    name="role"
+                    class="form-input"
+                    type="text"
+                    placeholder="e.g. NOC Manager, Energy Lead"
+                  />
+                </div>
+              </div>
+
+              <div class="form-field" style="margin-top: 1rem;">
+                <label>What do you want to monitor?</label>
+                <div class="form-checkbox-row">
+                  <label class="form-checkbox">
+                    <input type="checkbox" name="focus" value="sites" />
+                    Telecom / critical sites
+                  </label>
+                  <label class="form-checkbox">
+                    <input type="checkbox" name="focus" value="energy" />
+                    Energy & generators
+                  </label>
+                  <label class="form-checkbox">
+                    <input type="checkbox" name="focus" value="fleet" />
+                    Support fleet
+                  </label>
+                  <label class="form-checkbox">
+                    <input type="checkbox" name="focus" value="security" />
+                    Asset security
+                  </label>
+                </div>
+                <p class="form-helper">
+                  Select all that apply – we’ll tailor the walkthrough to your
+                  priorities.
+                </p>
+              </div>
+
+              <div class="form-field" style="margin-top: 1rem;">
+                <label for="message">Anything else we should know?</label>
+                <textarea
+                  id="message"
+                  name="message"
+                  class="form-textarea"
+                  placeholder="e.g. number of sites, countries, existing hardware, or KPIs you want to improve."
+                ></textarea>
+              </div>
+
+              <div
+                style="
+                  display: flex;
+                  justify-content: space-between;
+                  align-items: center;
+                  margin-top: 1.15rem;
+                  gap: 0.5rem;
+                "
+              >
+                <button type="submit" class="btn btn-primary">
+                  Request my tailored demo
+                </button>
+                <p class="form-helper" style="max-width: 210px;">
+                  No spam – a RAWCO expert will contact you within one
+                  business day.
+                </p>
+              </div>
+            </form>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- FOOTER -->
+    <footer>
+      <div class="container">
+        <div class="footer-grid">
+          <div>
+            <div class="footer-logo-row">
+              <!-- Update src to footer version of your logo if you have one -->
+              <img src="RAWCO LOGO_4.png" alt="RAWCO POWER GLOBAL logo" />
+              <span class="footer-brand">RAWCO POWER GLOBAL</span>
+            </div>
+            <p class="footer-text">
+              Remote energy and asset intelligence for telecom operators, data
+              centers, microgrids, and energy-intensive enterprises across
+              Europe and Africa.
+            </p>
+          </div>
+
+          <div>
+            <h3 class="footer-heading">Germany</h3>
+            <div class="footer-contact-row">
+              <span>📍</span>
+              <div>
+                Behringstrasse 104<br />
+                22763 Hamburg, Altona<br />
+                Germany
+              </div>
+            </div>
+            <div class="footer-contact-row">
+              <span>📞</span>
+              <a href="tel:+4915774867171">+49 1577 4867171</a>
+            </div>
+            <div class="footer-contact-row">
+              <span>💬</span>
+              <a href="https://wa.me/4915774867171">WhatsApp (Germany)</a>
+            </div>
+          </div>
+
+          <div>
+            <h3 class="footer-heading">Ghana</h3>
+            <div class="footer-contact-row">
+              <span>📍</span>
+              <div>
+                Tema, Community 18<br />
+                Spintex Road<br />
+                Ghana
+              </div>
+            </div>
+            <div class="footer-contact-row">
+              <span>📞</span>
+              <a href="tel:+233244816608">+233 24 481 6608</a>
+            </div>
+            <div class="footer-contact-row">
+              <span>💬</span>
+              <a href="https://wa.me/233244816608">WhatsApp (Ghana)</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="footer-bottom">
+          © 2024 RAWCO POWER GLOBAL. All rights reserved.
+        </div>
+      </div>
+    </footer>
+
+    <script>
+      // Mobile nav toggle
+      const navToggle = document.querySelector(".nav-toggle");
+      const navLinks = document.querySelector(".nav-links");
+
+      if (navToggle && navLinks) {
+        navToggle.addEventListener("click", () => {
+          navLinks.classList.toggle("open");
+        });
+
+        navLinks.querySelectorAll("a").forEach((link) => {
+          link.addEventListener("click", () => {
+            navLinks.classList.remove("open");
+          });
+        });
+      }
+    </script>
+  </body>
+</html>
